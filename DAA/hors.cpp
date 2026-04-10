@@ -1,4 +1,4 @@
-//Question 2: Horspool Pattern Searching
+//Question 1: Horspool Pattern Searching
 Code:
 
 #include <iostream>
