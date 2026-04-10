@@ -61,7 +61,6 @@ while True:
 
     else:
         print("Invalid operator, TRY AGAIN!")
-Use code with caution.
 
 ##Sample Output:
 --- Simple Calculator ---
@@ -75,6 +74,8 @@ Enter second set (a b c ...) (words/numbers): Banana Cherry
 Union: {'Apple', 'Banana', 'Cherry'}
 Action (+, -, *, /, ^, s, u, i, d) or 'q' to quit: q
 Goodbye!
+
+
 ##Question 2: Quadratic Equation Solver
 Code:
 
@@ -117,7 +118,6 @@ except ValueError:
     print("Invalid input. Please enter numbers only.")
 
 print("\nAll equations solved!")
-Use code with caution.
 
 ##Sample Output:
 How many equations do you want to solve? 1
