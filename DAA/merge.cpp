@@ -4,82 +4,74 @@ Code:
 #include <iostream>
 using namespace std;
 
-void merge(int A[], int l, int m, int r) {
-    int p = m - l + 1;
-    int q = r - m;
-
-    int* B = new int[p];
-    int* C = new int[q];
-
-    for (int i = 0; i < p; i++)
-        B[i] = A[l + i];
-
-    for (int j = 0; j < q; j++)
-        C[j] = A[m + 1 + j];
-
-    int i = 0, j = 0, k = l;
-
-    while (i < p && j < q) {
-        if (B[i] <= C[j]) {
-            A[k] = B[i];
-            i++;
-        } else {
-            A[k] = C[j];
-            j++;
-        }
-        k++;
+static void merge(int B[], int sizeB, int C[], int sizeC, int A[]) {
+    int i = 0, j = 0, k = 0;
+        
+    while (i < sizeB && j < sizeC) {
+        if (B[i] <= C[j])
+            A[k++] = B[i++];
+        else
+            A[k++] = C[j++];
     }
 
-    while (i < p) {
-        A[k] = B[i];
-        i++;
-        k++;
-    }
+    while (i < sizeB)
+        A[k++] = B[i++];
+            
+    while (j < sizeC)
+        A[k++] = C[j++];
+}
 
-    while (j < q) {
-        A[k] = C[j];
-        j++;
-        k++;
-    }
+static void mergeSort(int A[], int n) {
+    if (n <= 1)
+        return;
 
+    int mid = n / 2;
+    int sizeB = mid;
+    int sizeC = n - mid;
+
+    int* B = new int[sizeB];
+    int* C = new int[sizeC];
+
+    for (int i = 0; i < mid; i++)
+        B[i] = A[i];
+    for (int i = mid; i < n; i++)
+        C[i - mid] = A[i];
+
+    mergeSort(B, sizeB);
+    mergeSort(C, sizeC);
+    merge(B, sizeB, C, sizeC, A);
+
+    // In C++, we must manually free memory created with 'new'
     delete[] B;
     delete[] C;
 }
 
-void mergeSort(int A[], int l, int r) {
-    if (l < r) {
-        int m = l + (r - l) / 2;
-
-        mergeSort(A, l, m);
-        mergeSort(A, m + 1, r);
-
-        merge(A, l, m, r);
-    }
-}
 
 int main() {
-    int n;
-    cout << "Enter number of elements: ";
-    cin >> n;
-
-    int* A = new int[n];
-
-    cout << "Enter elements:\n";
-    for (int i = 0; i < n; i++) {
+    cout << "Enter the number of elements in the array: ";
+    int size;
+    cin >> size;
+    int A[size];
+    cout << "Enter the elements of the array:\n";
+    for (int i = 0; i < size; i++)
         cin >> A[i];
-    }
+    int n = size;
+    
 
-    mergeSort(A, 0, n - 1);
+    cout << "\nArray Elements :\n" << endl;
+    for (int i = 0; i < n; i++)
+        cout << A[i] << "  ";
 
-    cout << "Sorted array:\n";
-    for (int i = 0; i < n; i++) {
-        cout << A[i] << " ";
-    }
+    cout << "\n\nSorted..!\n" << endl;
+    mergeSort(A, n);
+
+    for (int i = 0; i < n; i++)
+        cout << A[i] << "  ";
     cout << endl;
 
-    delete[] A;
     return 0;
 }
+
 
 //Sample Output:
 Enter number of elements: 6
